@@ -1,4 +1,4 @@
 # berliner
 Berlin School Techno Example
 
-berliner.github.io
+https://catpea.github.io/berliner/
