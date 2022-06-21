@@ -1,23 +1,47 @@
-<!DOCTYPE html>
-<html>
-<head>
+<!doctype html>
+<html lang="en">
+  <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CGBB♭ - The Sound Of The Future</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.4.3/webcomponents-bundle.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Material+Icons&display=block" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
   <script src="tone.js"></script>
 </head>
-<body>
+<body class="bg-dark">
 
-<button id="play">play</button>
-<button id="stop">stop</button>
 
-<div>Right mouse click and "View Source" to see the code.</div>
-<a href="sample.mp3">Listen to a pre-recorded mp3 version.</a>
+  <main>
+
+
+  <div class="px-4 py-5 text-center bg-dark text-white">
+
+    <h1 class="display-5 fw-bold">The Sound Of The Future</h1>
+    <div class="col-lg-6 mx-auto">
+
+
+      <ul class="list-group mb-4">
+        <li class="list-group-item">Listen to a <a href="sample.mp3">pre-recorded mp3</a> version if the version generated live sounds odd.</li>
+        <li class="list-group-item">Headphones will bing out the bass, the speaker on your phone/laptop is often for voice.</li>
+        <li class="list-group-item">Right mouse click and "View Source" to see the code.</li>
+        <li class="list-group-item">Program uses <a href="https://tonejs.github.io/">Tone.js</a></li>
+        <li class="list-group-item">
+
+          I am not sure what notes <a href="https://youtu.be/BDgelEJwZoo?t=63">Giorgio Moroder asks for</a> CGB♭ or CGB and B♭, or CGB and E♭? There seem to be 4 notes there.
+          <a href="https://www.qwant.com/?client=opensearch&q=I+Feel+Love+Sheet+Music&t=web">Sheet music</a> states Bass Clef CCGB, no sharp :-/ Great!
+
+        </li>
+        <li class="list-group-item">Here is Giorgio Moroder's song in <a href="https://www.youtube.com/results?search_query=Donna+Summer+I+Feel+Love">full</a></li>
+      </ul>
+
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <button id="play" type="button" class="btn btn-primary btn-lg px-4 gap-3">Play</button>
+        <button id="stop" type="button" class="btn btn-outline-secondary btn-lg px-4">Stop</button>
+      </div>
+    </div>
+  </div>
+  </main>
 
   <script type="text/javascript">
-
-
 
     /// THIS IS THE CODE
 
@@ -53,14 +77,14 @@
       drum.triggerAttack(pitch, time, Math.random()*0.5 + 0.6);
     }), [ "C1" ], "4n").start(0);
 
-    const loop = new Tone.Loop((time) => {
+    new Tone.Loop((time) => {
       snare.triggerAttack(time);
     }, "2n").start('2m');
 
     new Tone.Sequence(((time, pitch) => {
       instrument1.triggerAttack(pitch, time, Math.random()*0.5 + 0.5); // this instrument is connected to pingPongDelay above
     }), ["C2", "G2", "B2", "D#2"], "8n").start('4m');  // Giorgio Moroder's notes
-
+    // Tis is probably more correct: "C2", "C2", "G2", "B2"
 
 
 
@@ -92,11 +116,9 @@
     stop.addEventListener("click", function(){
       Tone.Transport.stop();
       Tone.stop();
-
     });
 
   </script>
-
 
 </body>
 </html>
