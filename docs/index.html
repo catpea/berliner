@@ -45,6 +45,7 @@
 
     /// THIS IS THE CODE
 
+    const compressor = new Tone.Compressor(-20, 3).toDestination();
 
     // INSTRUMENTS
 
@@ -52,7 +53,7 @@
       delayTime: "16n",
       feedback: 0.6,
       wet: 0.5
-    }).toDestination(); // connect to speaker
+    }).connect(compressor);
 
     const instrument1 = new Tone.MembraneSynth({
       pitchDecay: 0.008,
@@ -65,8 +66,19 @@
     }).connect(pingPongDelay); // connect to pingPongDelay
 
      // drum
-    const drum = new Tone.MembraneSynth().toDestination();
-    const snare = new Tone.NoiseSynth().toDestination();
+    const drum = new Tone.MembraneSynth().connect(compressor);
+    const snare = new Tone.NoiseSynth({
+      // fadeIn:1,
+      // fadeOut:.1,
+      // playbackRate:1,
+      // type:"pink",
+      envelope: {
+        attack: 0,
+        decay: 0.1,
+        sustain: 0.0001
+      }
+    }).connect(compressor);
+    	// console.log( Tone.NoiseSynth.getDefaults() );
 
     // END INSTRUMENTS
 
