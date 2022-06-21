@@ -2,10 +2,10 @@
 <html>
 <head>
   <meta charset="utf-8">
-	<title>CGB♭</title>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.4.3/webcomponents-bundle.js"></script>
-	<link href="https://fonts.googleapis.com/css?family=Material+Icons&display=block" rel="stylesheet"/>
-	<script src="tone.js"></script>
+  <title>CGBB♭ - The Sound Of The Future</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.4.3/webcomponents-bundle.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Material+Icons&display=block" rel="stylesheet"/>
+  <script src="tone.js"></script>
 </head>
 <body>
 
@@ -13,17 +13,22 @@
 <button id="stop">stop</button>
 <div><small>Right mouse click and "View Source" to see the code.</small></div>
 
-	<script type="text/javascript">
+  <script type="text/javascript">
+
+
 
     /// THIS IS THE CODE
 
-    const feedbackDelay = new Tone.PingPongDelay({
+
+    // INSTRUMENTS
+
+    const pingPongDelay = new Tone.PingPongDelay({
       delayTime: "16n",
       feedback: 0.6,
       wet: 0.5
-    }).toDestination();
+    }).toDestination(); // connect to speaker
 
-    const instrument = new Tone.MembraneSynth({
+    const instrument1 = new Tone.MembraneSynth({
       pitchDecay: 0.008,
       octaves: 2,
       envelope: {
@@ -31,14 +36,48 @@
         decay: 0.5,
         sustain: 0
       }
-    }).connect(feedbackDelay);
+    }).connect(pingPongDelay); // connect to pingPongDelay
 
-    const instrumentPart = new Tone.Sequence(((time, pitch) => {
-      instrument.triggerAttack(pitch, time, Math.random()*0.5 + 0.5);
-    }), ["C4", "G4", "A#4", null], "4n").start(0);
+     // drum
+    const drum = new Tone.MembraneSynth().toDestination();
+    const snare = new Tone.NoiseSynth().toDestination();
 
-    Tone.Transport.bpm.value = 115;
+    // END INSTRUMENTS
 
+
+
+
+    new Tone.Sequence(((time, pitch) => {
+      drum.triggerAttack(pitch, time, Math.random()*0.5 + 0.6);
+    }), [ "C1" ], "4n").start(0);
+
+    const loop = new Tone.Loop((time) => {
+      snare.triggerAttack(time);
+    }, "2n").start('2m');
+
+    new Tone.Sequence(((time, pitch) => {
+      instrument1.triggerAttack(pitch, time, Math.random()*0.5 + 0.5); // this instrument is connected to pingPongDelay above
+    }), ["C2", "G2", "B2", "D#2"], "8n").start('4m');  // Giorgio Moroder's notes
+
+
+
+
+    // The beats per minute the song uses
+    Tone.Transport.bpm.value = 120;
+
+    /// END OF MUSIC CODE
+
+
+
+
+
+
+
+
+
+
+    /// THIS IS FOR THE BUTTONS
+    // browsers require interaction to play sound, in other words web pages cannot autoplay sounds, unless you click.
 
     const play = document.getElementById('play');
     const stop = document.getElementById('stop');
@@ -50,10 +89,11 @@
 
     stop.addEventListener("click", function(){
       Tone.Transport.stop();
+      Tone.stop();
+
     });
 
-
-	</script>
+  </script>
 
 
 </body>
