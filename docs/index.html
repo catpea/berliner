@@ -13,10 +13,18 @@
   <main>
 
 
+
+
+
   <div class="px-4 py-5 text-center bg-dark text-white">
 
     <h1 class="display-5 fw-bold">The Sound Of The Future</h1>
     <div class="col-lg-6 mx-auto">
+
+      <div class="my-5 alert alert-warning" role="alert">
+        Sorry. It does not work on bass or laptop speakers, only works on studio headphones (including cheap ones).
+        I have to work on the compressor a litte bit, I am still learning Tone.js.
+      </div>
 
 
       <ul class="list-group mb-4">
@@ -45,7 +53,7 @@
 
     /// THIS IS THE CODE
 
-    const compressor = new Tone.Compressor(-20, 3).toDestination();
+    const compressor = new Tone.Compressor(-10, 1).toDestination();
 
     // INSTRUMENTS
 
@@ -57,9 +65,9 @@
 
     const instrument1 = new Tone.MembraneSynth({
       pitchDecay: 0.008,
-      octaves: 2,
+      octaves: 3,
       envelope: {
-        attack: 0.0006,
+        attack: 0.001,
         decay: 0.5,
         sustain: 0
       }
